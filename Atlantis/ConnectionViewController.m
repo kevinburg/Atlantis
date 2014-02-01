@@ -53,8 +53,8 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", front, back];
     
-    self.heightLabel.text = jsonArray[0][@"height"];
-    self.hairColor.text = jsonArray[0][@"hairColor"];
+    self.heightLabel.text = [NSString stringWithFormat:@"%@ tall", jsonArray[0][@"height"]];
+    self.hairColor.text = [NSString stringWithFormat:@"%@ hair", jsonArray[0][@"hairColor"]];
     self.majorLabel.text = jsonArray[0][@"dept"];
     
     //self.connectionLabel.text = self.connectionLabelText;
