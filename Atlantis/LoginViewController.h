@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) FBLoginView *loginView;
 @property (weak, nonatomic) IBOutlet UIButton *buttonClicked;
+@property NSString *id;
 
 @end

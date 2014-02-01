@@ -366,7 +366,7 @@
     //NSLog(@"Central subscribed to characteristic");
     
     // Get the data
-    self.dataToSend = [SECRET_STRING dataUsingEncoding:NSUTF8StringEncoding];
+    self.dataToSend = [self.id dataUsingEncoding:NSUTF8StringEncoding];
     
     // Reset the index
     self.sendDataIndex = 0;

@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "AppDelegate.h"
+#import "RegisterViewController.h"
+#import "ViewController.h"
 
 @interface LoginViewController ()
 
@@ -39,25 +41,29 @@
     [super viewDidAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loggedInToAtlantis)
+                                             selector:@selector(loggedInToAtlantis:)
                                                  name:@"LoggedInNotification"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(registerForAtlantis)
+                                             selector:@selector(registerForAtlantis:)
                                                  name:@"RegisterNotification"
                                                object:nil];
 }
 
 #pragma mark - Login
-- (void)loggedInToAtlantis
+- (void)loggedInToAtlantis:(NSNotification *)anote
 {
     // This function is called once the user logs into Atlantis
+    self.id = [anote userInfo];
     [self performSegueWithIdentifier:@"FromLoginSegue" sender:self];
+    
 }
 
-- (void)registerForAtlantis
+- (void)registerForAtlantis:(NSNotification *)anote
 {
+    self.id = [anote userInfo];
     [self performSegueWithIdentifier:@"RegisterSegue" sender:self];
+    
 }
 
 
@@ -82,10 +88,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"FromLoginSegue"]) {
-        
+        ViewController * con = [segue destinationViewController];
+        con.id = self.id;
+        NSLog(@"REG_VIEW_CON_VIEW");
+        NSLog(self.id);
     } else {
         if ([segue.identifier isEqualToString:@"RegisterSegue"]) {
-            
+            RegisterViewController * con = [segue destinationViewController];
+            con.id = self.id;
+            NSLog(@"LOGIN_VIEW_CON_REG");
+            NSLog(self.id);
         } else {
             NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
         }

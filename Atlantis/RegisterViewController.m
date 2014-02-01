@@ -59,7 +59,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(doneRegister)
+                                             selector:@selector(doneRegister:)
                                                  name:@"DoneRegister"
                                                object:nil];
 
@@ -276,8 +276,11 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
         
 }
 
-- (void)doneRegister
+- (void)doneRegister:(NSNotification *)anote
 {
+    self.id = [anote userInfo];
+    NSLog(@"REG_VIEW_CON_VIEW");
+    NSLog(self.id);
     [self performSegueWithIdentifier:@"DoneRegisterSegue" sender:self];
 }
 
