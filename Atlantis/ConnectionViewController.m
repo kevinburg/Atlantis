@@ -31,7 +31,7 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 {
     [super viewDidLoad];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/logincheck/%@", SERVER_URL,
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/getinfo/%@", SERVER_URL,
                                        self.id]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -61,7 +61,7 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     
     NSMutableData *imageData;
     imageData = [[NSMutableData alloc] init]; // the image will be loaded in here
-    NSString *urlString = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", self.connectionLabelText];
+    NSString *urlString = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", self.id];
     NSMutableURLRequest *urlRequest =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
                             cachePolicy:NSURLRequestUseProtocolCachePolicy
