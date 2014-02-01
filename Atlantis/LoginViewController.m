@@ -42,6 +42,10 @@
                                              selector:@selector(loggedInToAtlantis)
                                                  name:@"LoggedInNotification"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(registerForAtlantis)
+                                                 name:@"RegisterNotification"
+                                               object:nil];
 }
 
 #pragma mark - Login
@@ -49,6 +53,11 @@
 {
     // This function is called once the user logs into Atlantis
     [self performSegueWithIdentifier:@"FromLoginSegue" sender:self];
+}
+
+- (void)registerForAtlantis
+{
+    [self performSegueWithIdentifier:@"RegisterSegue" sender:self];
 }
 
 
@@ -75,7 +84,11 @@
     if ([segue.identifier isEqualToString:@"FromLoginSegue"]) {
         
     } else {
-        NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
+        if ([segue.identifier isEqualToString:@"RegisterSegue"]) {
+            
+        } else {
+            NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
+        }
     }
 }
 
