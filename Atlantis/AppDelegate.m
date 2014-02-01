@@ -96,17 +96,21 @@
         [FBRequestConnection startWithGraphPath:@"me?fields=picture.type(large)"
                               completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                                   [self.me setValue:result[@"picture"][@"data"][@"url"] forKey:@"pictureURL"];
-                                  //[self finishLoggingIn];
-                                  
-                                  // Now get their likes
-                                  [FBRequestConnection startWithGraphPath:@"me?fields=likes"
+                                  // Get cover photo
+                                  [FBRequestConnection startWithGraphPath:@"me?fields=cover"
                                                         completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                                            //NSArray *myLikes = (NSArray*)[result data];
-                                                            [self.me setValue:result[@"likes"][@"data"] forKey:@"likesArrayOfDicts"];
-                                                            //NSLog(self.me[@"stuff"][0][@"name"]);
-                                                            //[self.me setValue: result forKey: @"likes"];
-                                                            [self finishLoggingIn];
+                                                            [self.me setValue:result[@"source"] forKey:@"coverURL"];
+                                                            // Now get their likes
+                                                            [FBRequestConnection startWithGraphPath:@"me?fields=likes.limit(5)"
+                                                                                  completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                                                    
+                                                                                      [self.me setValue:result[@"likes"][@"data"] forKey:@"likesArrayOfDicts"];
+                                                                                      [self finishLoggingIn];
+                                                                                  }];
+                                                            
                                                         }];
+                                  
+                                  
                               }];
         
     }];
@@ -121,7 +125,7 @@
     
     self.name = [[NSString alloc] init];
     self.name = self.me[@"name"];
-    NSLog(self.name);
+    //NSLog(self.name);
     
     
 /*

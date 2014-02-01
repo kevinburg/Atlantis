@@ -63,7 +63,10 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     NSString *userString = [NSString stringWithFormat:@"fname=%@&lname=%@&id=%@&andrew=%@&height=%@&hairColor=%@&likes=%@", firstName, lastName, self.userInfo[@"id"], andrewID, height, hairColor, jsonString];
     NSData *jsonData = [userString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPMethod:@"POST"];
+    //[request setValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    //NSLog(jsonData);
     [request setHTTPBody:jsonData];
+    //NSLog([request HTTPBody]);
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
     [NSURLConnection sendAsynchronousRequest:request
