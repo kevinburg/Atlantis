@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ConnectionViewController.h"
 
 @interface ViewController () <CBCentralManagerDelegate, CBPeripheralDelegate>
     // central
@@ -27,6 +28,11 @@
 {
 
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionMade)
+                                                 name:@"ConnectionNotification"
+                                               object:nil];
 
     // Start up the CBCentralManager
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
@@ -223,6 +229,10 @@
         
         // and disconnect from the peripehral
         [self.centralManager cancelPeripheralConnection:peripheral];
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
+                                                            object:self];
     }
     
     // Otherwise, just add the data on to what we already have
@@ -231,6 +241,26 @@
     // Log it
     //NSLog(@"Received: %@", stringFromData);
 }
+
+- (void)connectionMade
+{
+    // This function is called once the user logs into Atlantis
+    [self performSegueWithIdentifier:@"ConnectSegue" sender:self];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ConnectSegue"]) {
+        ConnectionViewController * homeController =[segue destinationViewController];
+        homeController.connectionLabelText = self.foundLabel.text;
+        
+    } else {
+        NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
+   
+    }
+}
+
 
 
 /** The peripheral letting us know whether our subscribe/unsubscribe happened or not

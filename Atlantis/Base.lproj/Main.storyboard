@@ -122,11 +122,53 @@
                     <connections>
                         <outlet property="foundLabel" destination="yB6-Ai-M7w" id="feF-3V-e5x"/>
                         <outlet property="statusLabel" destination="iSC-rq-Deo" id="f0G-GB-eMf"/>
+                        <segue destination="78o-86-nuY" kind="modal" identifier="ConnectSegue" id="DyM-eu-cxX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="129" y="270"/>
+        </scene>
+        <!--Connection View Controller-->
+        <scene sceneID="7bu-oV-oal">
+            <objects>
+                <viewController id="78o-86-nuY" customClass="ConnectionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fVa-87-we7"/>
+                        <viewControllerLayoutGuide type="bottom" id="XUl-0r-HpB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SxK-QY-j3c">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bfg-1T-Zfh">
+                                <rect key="frame" x="68" y="273" width="184" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKn-52-l71">
+                                <rect key="frame" x="76" y="145" width="169" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonClicked:" destination="78o-86-nuY" eventType="touchUpInside" id="yFm-ET-tRd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="connectionLabel" destination="Bfg-1T-Zfh" id="kcK-da-mfQ"/>
+                        <segue destination="vXZ-lx-hvc" kind="modal" identifier="DisconnectSegue" id="bEC-Ni-4Jq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xEy-Yp-eqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="621" y="7"/>
         </scene>
     </scenes>
     <resources>
@@ -142,6 +184,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="mza-5R-KjQ"/>
+        <segue reference="bEC-Ni-4Jq"/>
     </inferredMetricsTieBreakers>
 </document>
