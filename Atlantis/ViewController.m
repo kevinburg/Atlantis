@@ -222,7 +222,6 @@
         
         // We have, so show the data,
         self.foundLabel.text = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-        //[self.textview setText:[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
         
         // Cancel our subscription to the characteristic
         [peripheral setNotifyValue:NO forCharacteristic:characteristic];
@@ -230,9 +229,23 @@
         // and disconnect from the peripehral
         [self.centralManager cancelPeripheralConnection:peripheral];
         
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
+        // If we are in background, send local notification
+        if([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
+            NSLog(@"RECEIVED DATA IN BACKGROUND");
+            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+            if (localNotif) {
+                localNotif.alertBody = [NSString stringWithFormat:
+                                        NSLocalizedString(@"Holy Shit, you should talk to this person.", nil)];
+                localNotif.alertAction = NSLocalizedString(@"Yeah, OK", nil);
+                localNotif.soundName = @"alarmsound.caf";
+                localNotif.applicationIconBadgeNumber = 1;
+                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+                //[localNotif release];
+            }
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
                                                             object:self];
+        }
     }
     
     // Otherwise, just add the data on to what we already have
