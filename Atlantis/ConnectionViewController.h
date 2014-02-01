@@ -13,6 +13,7 @@
 @property NSString *connectionLabelText;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 
+@property NSString *conn;
 @property NSString *id;
 
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;

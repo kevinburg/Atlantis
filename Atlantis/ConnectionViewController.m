@@ -37,8 +37,8 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     
     [self setLikes:[[NSMutableArray alloc] init]];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/getinfo/%@", SERVER_URL,
-                                       self.id]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/compare/%@/%@", SERVER_URL,
+                                       self.conn,self.id]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
@@ -54,22 +54,6 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     NSError *error = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response1 options:kNilOptions error:&error];
     
-    NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/compare/%@/%@", SERVER_URL,
-                                       self.id, jsonArray[0][@"id"]]];
-    NSMutableURLRequest *request2 = [NSMutableURLRequest requestWithURL:url2
-                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                       timeoutInterval:10];
-    
-    [request setHTTPMethod: @"GET"];
-    
-    NSError *requestError2;
-    NSURLResponse *urlResponse2 = nil;
-    
-    
-    NSData *response2 = [NSURLConnection sendSynchronousRequest:request2 returningResponse:&urlResponse2 error:&requestError2];
-    
-    NSError *error2 = nil;
-    NSArray *jsonArray2 = [NSJSONSerialization JSONObjectWithData:response2 options:kNilOptions error:&error2];
     
     NSString *front = jsonArray[0][@"fname"];
     NSString *back = jsonArray[0][@"lname"];
@@ -80,13 +64,13 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     self.hairColor.text = [NSString stringWithFormat:@"%@ hair", jsonArray[0][@"hairColor"]];
     self.majorLabel.text = jsonArray[0][@"dept"];
     
-    self.likes = jsonArray2;
+    self.likes = jsonArray[0][@"commonLikes"];
     
     //self.connectionLabel.text = self.connectionLabelText;
     
     NSMutableData *imageData;
     imageData = [[NSMutableData alloc] init]; // the image will be loaded in here
-    NSString *urlString = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", self.id];
+    NSString *urlString = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", self.conn];
     NSMutableURLRequest *urlRequest =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
                             cachePolicy:NSURLRequestUseProtocolCachePolicy
