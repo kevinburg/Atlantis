@@ -320,10 +320,13 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
         
         NSString *id = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
         
-
+            // send notification if we are in background
+            [self MaybeNotify];
         
             if ([self.connections containsObject:id]) {
             } else {
+                // show some stuff
+                
                 // We have, so show the data,
                 //self.foundLabel.text = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
                 //[self.textview setText:[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
@@ -367,6 +370,43 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
         NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
    
     }
+}
+
+-(void)setTimestamp
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *somekey = [defaults objectForKey:@"notificationStamp"];
+    if (somekey != nil) {
+        NSDate *start = [NSDate date];
+        [defaults setObject:start forKey:@"notificationStamp"];
+    }
+    
+}
+
+
+// call to maybe do a notification.
+-(void)MaybeNotify
+{
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDate *past = [defaults objectForKey:@"notificationStamp"];
+        NSTimeInterval timeInterval = [past timeIntervalSinceNow];
+        if (timeInterval > 60.0f) {
+            // do notification
+            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+            localNotif.alertBody = [NSString stringWithFormat:
+                                    NSLocalizedString(@"Someone near you has Venn. Why not start a conversation now?", nil)];
+            localNotif.alertAction = NSLocalizedString(@"OK, Let's go!", nil);
+            localNotif.soundName = @"alarmsound.caf";
+            //localNotif.applicationIconBadgeNumber = 1;
+            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+            
+            [self setTimestamp];
+        }
+    } else {
+        [self setTimestamp];
+    }
+    
 }
 
 
