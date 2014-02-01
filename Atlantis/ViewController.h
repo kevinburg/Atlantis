@@ -13,11 +13,8 @@
 
 @interface ViewController : UIViewController //<CBPeripheralManagerDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *table;
 
-
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-@property (weak, nonatomic) IBOutlet UILabel *foundLabel;
 @property NSString *id;
-
 
 @end

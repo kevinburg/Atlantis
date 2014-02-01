@@ -28,6 +28,7 @@
 		0A9BA5A4189C26F300E6CD1B /* AtlantisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BA5A3189C26F300E6CD1B /* AtlantisTests.m */; };
 		0A9BA5AE189C27FF00E6CD1B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */; };
 		0AC2AC4E189CF1790099DBDC /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2AC4D189CF1790099DBDC /* ConnectionViewController.m */; };
+		0AC2AC5A189D35A30099DBDC /* AtlantisTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2AC59189D35A30099DBDC /* AtlantisTableCell.m */; };
 		A0C35BFA189CA5470073466C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C35BF9189CA5470073466C /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,8 @@
 		0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		0AC2AC4C189CF1780099DBDC /* ConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionViewController.h; sourceTree = "<group>"; };
 		0AC2AC4D189CF1790099DBDC /* ConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionViewController.m; sourceTree = "<group>"; };
+		0AC2AC58189D35A30099DBDC /* AtlantisTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtlantisTableCell.h; sourceTree = "<group>"; };
+		0AC2AC59189D35A30099DBDC /* AtlantisTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtlantisTableCell.m; sourceTree = "<group>"; };
 		A0A6DE55189CD14100913D6B /* TransferService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferService.h; sourceTree = "<group>"; };
 		A0C35BF9189CA5470073466C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +170,8 @@
 				0A99EA7B189CAC6100F36530 /* ServerComm.m */,
 				0AC2AC4C189CF1780099DBDC /* ConnectionViewController.h */,
 				0AC2AC4D189CF1790099DBDC /* ConnectionViewController.m */,
+				0AC2AC58189D35A30099DBDC /* AtlantisTableCell.h */,
+				0AC2AC59189D35A30099DBDC /* AtlantisTableCell.m */,
 			);
 			path = Atlantis;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AC2AC5A189D35A30099DBDC /* AtlantisTableCell.m in Sources */,
 				0A99EA79189C82F000F36530 /* LoginViewController.m in Sources */,
 				0A99EA86189CB71B00F36530 /* JVFloatLabeledTextView.m in Sources */,
 				0A9BA58F189C26F300E6CD1B /* ViewController.m in Sources */,

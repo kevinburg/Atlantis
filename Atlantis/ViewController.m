@@ -6,10 +6,14 @@
 //  Copyright (c) 2014 Tartanhacks2014. All rights reserved.
 //
 
+#import <FacebookSDK/FacebookSDK.h>
 #import "ViewController.h"
 #import "ConnectionViewController.h"
+#import "AtlantisTableCell.h"
 
-@interface ViewController () <CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface ViewController () <CBCentralManagerDelegate, CBPeripheralDelegate,
+    UITableViewDataSource,
+    UITableViewDelegate>
     // central
     @property (strong, nonatomic) CBCentralManager      *centralManager;
     @property (strong, nonatomic) CBPeripheral          *discoveredPeripheral;
@@ -19,6 +23,11 @@
     @property (strong, nonatomic) CBMutableCharacteristic   *transferCharacteristic;
     @property (strong, nonatomic) NSData                    *dataToSend;
     @property (nonatomic, readwrite) NSInteger              sendDataIndex;
+
+    @property (strong, nonatomic) NSMutableArray *connections;
+    @property NSString *conn;
+    @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
 @end
 
 
@@ -29,10 +38,14 @@
 
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
+    [self setConnections:[[NSMutableArray alloc] init]];
+    
+    //[self setTable:[[UITableView alloc] init]];
+    
+    /*[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(connectionMade)
                                                  name:@"ConnectionNotification"
-                                               object:nil];
+                                               object:nil];*/
 
     // Start up the CBCentralManager
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
@@ -58,7 +71,7 @@
         // Bluetooth is on
         
         // Update our status label
-        self.statusLabel.text = @"Scanning...";
+        //self.statusLabel.text = @"Scanning...";
         
         // ... so start scanning
         [self scan];
@@ -66,14 +79,14 @@
     else if (central.state == CBCentralManagerStatePoweredOff)
     {
         // Update our status label
-        self.statusLabel.text = @"Stopped";
+        //self.statusLabel.text = @"Stopped";
         
         // Bluetooth isn't on. Stop broadcasting
         //[self.peripheralManager stopAdvertising];
     }
     else if (central.state == CBCentralManagerStateUnsupported)
     {
-        self.statusLabel.text = @"Unsupported";
+        //self.statusLabel.text = @"Unsupported";
     }
     //OLD
     if (central.state != CBCentralManagerStatePoweredOn) {
@@ -205,6 +218,36 @@
     // Once this is complete, we just need to wait for the data to come in.
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.connections count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AtlantisTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableCell"
+                                                                forIndexPath:indexPath];
+    NSString *conn = self.connections[[indexPath row]];
+
+    [cell.cellLabel setText:[NSString stringWithFormat:@"Continue with %@", conn]];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    NSString *conn = self.connections[[indexPath row]];
+    self.conn = conn;
+    [self performSegueWithIdentifier:@"ConnectSegue" sender:self];
+    return;
+}
+
 
 /** This callback lets us know more data has arrived via notification on the characteristic
  */
@@ -220,19 +263,27 @@
     // Have we got everything we need?
     if ([stringFromData isEqualToString:@"EOM"]) {
         
-        // We have, so show the data,
-        self.foundLabel.text = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-        //[self.textview setText:[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
+            NSString *id = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
         
-        // Cancel our subscription to the characteristic
-        [peripheral setNotifyValue:NO forCharacteristic:characteristic];
+            if (![self.connections containsObject:id]) {
         
-        // and disconnect from the peripehral
-        [self.centralManager cancelPeripheralConnection:peripheral];
+            // We have, so show the data,
+            //self.foundLabel.text = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+            //[self.textview setText:[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
+        
+            // Cancel our subscription to the characteristic
+            [peripheral setNotifyValue:NO forCharacteristic:characteristic];
+        
+            // and disconnect from the peripehral
+            [self.centralManager cancelPeripheralConnection:peripheral];
         
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
-                                                            object:self];
+            /*[[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
+                                                            object:self];*/
+            [self.connections addObject:id];
+            NSLog(@"Time to reload");
+            [self.table reloadData];
+        }
     }
     
     // Otherwise, just add the data on to what we already have
@@ -253,7 +304,7 @@
 {
     if ([segue.identifier isEqualToString:@"ConnectSegue"]) {
         ConnectionViewController * homeController =[segue destinationViewController];
-        homeController.connectionLabelText = self.foundLabel.text;
+        homeController.connectionLabelText = self.conn;
         
     } else {
         NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
@@ -351,7 +402,7 @@
 
         
         // Update our status label
-        self.statusLabel.text = @"Broadcasting...";
+        //self.statusLabel.text = @"Broadcasting...";
         
         // Start with the CBMutableCharacteristic
         self.transferCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]
@@ -375,14 +426,14 @@
     else if (peripheral.state == CBPeripheralManagerStatePoweredOff)
     {
         // Update our status label
-        self.statusLabel.text = @"Stopped";
+        //self.statusLabel.text = @"Stopped";
         
         // Bluetooth isn't on. Stop broadcasting
         //[self.peripheralManager stopAdvertising];
     }
     else if (peripheral.state == CBPeripheralManagerStateUnsupported)
     {
-        self.statusLabel.text = @"Unsupported";
+        //self.statusLabel.text = @"Unsupported";
     }
     
     
