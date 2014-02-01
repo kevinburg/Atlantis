@@ -31,11 +31,11 @@
 #import "ServerComm.h"
 
 const static CGFloat kJVFieldHeight = 55.0f; //44
-const static CGFloat kJVFieldHMargin = 22.0f; //10
+const static CGFloat kJVFieldHMargin = 10.0f; //10
 
 const static CGFloat kJVFieldFontSize = 20.0f; //16
 
-const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
+const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
 
 @interface RegisterViewController ()
 
@@ -70,7 +70,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     
     UIColor *floatingLabelColor = [UIColor grayColor];
     
-    CGFloat currentTopMargin = topOffset + 2.0f;
+    CGFloat currentTopMargin = topOffset + 10.0f;
     
     JVFloatLabeledTextField *firstNameField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                            CGRectMake(kJVFieldHMargin, currentTopMargin, self.view.frame.size.width - 2 * kJVFieldHMargin, kJVFieldHeight)];
@@ -80,6 +80,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     firstNameField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     firstNameField.floatingLabelTextColor = floatingLabelColor;
     firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    firstNameField.delegate = self;
     [self.view addSubview:firstNameField];
     
     // HORIZONTAL SPACER
@@ -100,6 +101,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     lastNameField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     lastNameField.floatingLabelTextColor = floatingLabelColor;
     lastNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    lastNameField.delegate = self;
     [self.view addSubview:lastNameField];
     
     // HORIZONTAL SPACER
@@ -119,7 +121,9 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     andrewField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     andrewField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     andrewField.floatingLabelTextColor = floatingLabelColor;
+    andrewField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     andrewField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    andrewField.delegate = self;
     [self.view addSubview:andrewField];
     
     // HORIZONTAL SPACER
@@ -130,50 +134,54 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     div3.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
     [self.view addSubview:div3];
     
-    // VERTICAL SPACER
+    // HORIZONTAL SPACER
 //    UIView *divLN = [UIView new];
 //    
 //    currentTopMargin += lastNameField.frame.origin.y + lastNameField.frame.size.height;
-//    divLN.frame = CGRectMake(kJVFieldHMargin, currentTopMargin,
+//    divLN.frame = CGRectMake(kJVFieldHMargin, 50.0f,
 //                            self.view.frame.size.width - 2 * kJVFieldHMargin, 1.0f);
-//    divLN.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.3f];
+//    divLN.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
 //    [self.view addSubview:divLN];
     
     
     currentTopMargin += 4.0f;
     
-    JVFloatLabeledTextField *priceField = [[JVFloatLabeledTextField alloc] initWithFrame:
+    JVFloatLabeledTextField *heightField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                            CGRectMake(kJVFieldHMargin, currentTopMargin, 80.0f, kJVFieldHeight)];
-    priceField.tag = 3;
-    priceField.placeholder = NSLocalizedString(@"Height", @"");
-    priceField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
-    priceField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
-    priceField.floatingLabelTextColor = floatingLabelColor;
-    [self.view addSubview:priceField];
+    heightField.tag = 3;
+    heightField.placeholder = NSLocalizedString(@"Height", @"");
+    heightField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
+    heightField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
+    heightField.floatingLabelTextColor = floatingLabelColor;
+    heightField.delegate = self;
+    [self.view addSubview:heightField];
     
-//    UIView *div2 = [UIView new];
-//    div2.frame = CGRectMake(kJVFieldHMargin + priceField.frame.size.width,
-//                            firstNameField.frame.origin.y + firstNameField.frame.size.height,
-//                            1.0f, kJVFieldHeight);
-//    div2.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
-//    [self.view addSubview:div2];
     
-    currentTopMargin += 4.0f;
+    // VERTICAL SPACER
+    UIView *div5 = [UIView new];
+    div5.frame = CGRectMake(kJVFieldHMargin + heightField.frame.size.width,
+                            0.0f,
+                            1.0f, kJVFieldHeight);
+    div5.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
+    [self.view addSubview:div2];
     
-    JVFloatLabeledTextField *locationField = [[JVFloatLabeledTextField alloc] initWithFrame:
-                                              CGRectMake(kJVFieldHMargin + kJVFieldHMargin + priceField.frame.size.width + 1.0f,
+    currentTopMargin;
+    
+    JVFloatLabeledTextField *hairField = [[JVFloatLabeledTextField alloc] initWithFrame:
+                                              CGRectMake(kJVFieldHMargin + kJVFieldHMargin + heightField.frame.size.width + 1.0f,
                                                          currentTopMargin,
-                                                         self.view.frame.size.width - 3*kJVFieldHMargin - priceField.frame.size.width - 1.0f,
+                                                         self.view.frame.size.width - 3*kJVFieldHMargin - heightField.frame.size.width - 1.0f,
                                                          kJVFieldHeight)];
-    locationField.tag = 5;
-    locationField.placeholder = NSLocalizedString(@"Hair Color", @"");
-    locationField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
-    locationField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
-    locationField.floatingLabelTextColor = floatingLabelColor;
-    [self.view addSubview:locationField];
+    hairField.tag = 4;
+    hairField.placeholder = NSLocalizedString(@"Hair Color", @"");
+    hairField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
+    hairField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
+    hairField.floatingLabelTextColor = floatingLabelColor;
+    hairField.delegate = self;
+    [self.view addSubview:hairField];
     
     UIView *div4 = [UIView new];
-    div4.frame = CGRectMake(kJVFieldHMargin, priceField.frame.origin.y + priceField.frame.size.height,
+    div4.frame = CGRectMake(kJVFieldHMargin, heightField.frame.origin.y + heightField.frame.size.height,
                             self.view.frame.size.width - 2*kJVFieldHMargin, 1.0f);
     div4.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
     [self.view addSubview:div4];
@@ -191,7 +199,57 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     
     [firstNameField becomeFirstResponder];
     
+    
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    UITextField *firstName, *lastName, *andrewID, *height, *hairColor;
+    for (int i = 0; i < self.view.subviews.count; i++){
+        UIView *subview = self.view.subviews[i];
+        if([subview isKindOfClass:[UITextField class]]) {
+            if (subview.tag == 0){
+                NSLog(@"found first name");
+                firstName = (UITextField *)subview;
+                
+            } else if(subview.tag == 1){
+                NSLog(@"found last name");
+                lastName = (UITextField *)subview;
+            } else if (subview.tag == 2){
+                NSLog(@"andrew");
+                andrewID = (UITextField *)subview;
+            } else if (subview.tag == 3){
+                NSLog(@"height");
+                height = (UITextField *)subview;
+            } else if (subview.tag == 4){
+                NSLog(@"hair color");
+                hairColor = (UITextField *)subview;
+            }
+        }
+    }
+
+    if(theTextField==firstName){
+        [lastName becomeFirstResponder];
+    }
+    if(theTextField==lastName){
+        [andrewID becomeFirstResponder];
+    }
+    if(theTextField==andrewID){
+        [height becomeFirstResponder];
+    }
+    if(theTextField==height){
+        [hairColor becomeFirstResponder];
+    }
+    if(theTextField==hairColor){
+        // TODO: VALIDATE FORM IS FILLED OUT CORRECTLY
+        //ServerComm *serverComm = [[ServerComm alloc] init];
+        //[serverComm registerUser:[firstName text]:[lastName text]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DoneRegister"
+                                                            object:self];
+    }
+    return YES;
+}
+
+
 
 - (IBAction)buttonClicked:(id)sender {
     UITextField *firstName, *lastName;
@@ -210,6 +268,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     NSLog([firstName text]);
     NSLog([lastName text]);
     
+    // TODO: VALIDATE FORM IS FILLED OUT CORRECTLY
     //ServerComm *serverComm = [[ServerComm alloc] init];
     //[serverComm registerUser:[firstName text]:[lastName text]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DoneRegister"
