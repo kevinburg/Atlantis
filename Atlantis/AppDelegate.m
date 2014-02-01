@@ -118,10 +118,10 @@
     
         [[NSNotificationCenter defaultCenter] postNotificationName:@"LoggedInNotification"
                                                         object:self
-                                                      userInfo:self.me[@"id"]];
+                                                      userInfo:self.me];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"RegisterNotification"
-                                            object:self userInfo:self.me[@"id" ]];
+                                            object:self userInfo:self.me];
     }
 
     return;
