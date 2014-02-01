@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
     
     // Initialize location manager and set ourselves as the delegate

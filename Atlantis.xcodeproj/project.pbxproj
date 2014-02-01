@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A99EA75189C7C6C00F36530 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A99EA74189C7C6C00F36530 /* FacebookSDK.framework */; };
+		0A99EA79189C82F000F36530 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A99EA78189C82F000F36530 /* LoginViewController.m */; };
 		0A9BA579189C26F300E6CD1B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA578189C26F300E6CD1B /* Foundation.framework */; };
 		0A9BA57B189C26F300E6CD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA57A189C26F300E6CD1B /* CoreGraphics.framework */; };
 		0A9BA57D189C26F300E6CD1B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA57C189C26F300E6CD1B /* UIKit.framework */; };
@@ -36,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A99EA74189C7C6C00F36530 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		0A99EA77189C82F000F36530 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0A99EA78189C82F000F36530 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		0A9BA575189C26F300E6CD1B /* Atlantis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlantis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9BA578189C26F300E6CD1B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0A9BA57A189C26F300E6CD1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,6 +74,7 @@
 				0A9BA57B189C26F300E6CD1B /* CoreGraphics.framework in Frameworks */,
 				0A9BA57D189C26F300E6CD1B /* UIKit.framework in Frameworks */,
 				0A9BA579189C26F300E6CD1B /* Foundation.framework in Frameworks */,
+				0A99EA75189C7C6C00F36530 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +113,7 @@
 		0A9BA577189C26F300E6CD1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A99EA74189C7C6C00F36530 /* FacebookSDK.framework */,
 				0A9BA5AF189C280400E6CD1B /* CoreLocation.framework */,
 				0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */,
 				0A9BA578189C26F300E6CD1B /* Foundation.framework */,
@@ -120,6 +127,8 @@
 		0A9BA57E189C26F300E6CD1B /* Atlantis */ = {
 			isa = PBXGroup;
 			children = (
+				0A99EA77189C82F000F36530 /* LoginViewController.h */,
+				0A99EA78189C82F000F36530 /* LoginViewController.m */,
 				0A9BA587189C26F300E6CD1B /* AppDelegate.h */,
 				0A9BA588189C26F300E6CD1B /* AppDelegate.m */,
 				0A9BA58A189C26F300E6CD1B /* Main.storyboard */,
@@ -257,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A99EA79189C82F000F36530 /* LoginViewController.m in Sources */,
 				0A9BA58F189C26F300E6CD1B /* ViewController.m in Sources */,
 				0A9BA589189C26F300E6CD1B /* AppDelegate.m in Sources */,
 				0A9BA585189C26F300E6CD1B /* main.m in Sources */,
@@ -386,6 +396,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Kevin/Documents/FacebookSDK,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Atlantis/Atlantis-Prefix.pch";
 				INFOPLIST_FILE = "Atlantis/Atlantis-Info.plist";
@@ -399,6 +413,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Kevin/Documents/FacebookSDK,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Atlantis/Atlantis-Prefix.pch";
 				INFOPLIST_FILE = "Atlantis/Atlantis-Info.plist";
@@ -468,6 +486,7 @@
 				0A9BA5A9189C26F300E6CD1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A9BA5AA189C26F300E6CD1B /* Build configuration list for PBXNativeTarget "AtlantisTests" */ = {
 			isa = XCConfigurationList;
@@ -476,6 +495,7 @@
 				0A9BA5AC189C26F300E6CD1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
