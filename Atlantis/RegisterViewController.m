@@ -57,6 +57,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(doneRegister:)
@@ -66,11 +67,11 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
 
     [self.view setTintColor:[UIColor blueColor]];
     
-    CGFloat topOffset = [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height;
+    CGFloat topOffset = [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height + 85.0f;
     
     UIColor *floatingLabelColor = [UIColor grayColor];
     
-    CGFloat currentTopMargin = topOffset + 10.0f;
+    CGFloat currentTopMargin = topOffset;
     
     JVFloatLabeledTextField *firstNameField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                            CGRectMake(kJVFieldHMargin, currentTopMargin, 140.0f, kJVFieldHeight)];
@@ -81,6 +82,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     firstNameField.floatingLabelTextColor = floatingLabelColor;
     firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     firstNameField.delegate = self;
+    firstNameField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:firstNameField];
     
     // HORIZONTAL SPACER
@@ -112,6 +114,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     lastNameField.floatingLabelTextColor = floatingLabelColor;
     lastNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     lastNameField.delegate = self;
+    lastNameField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:lastNameField];
     
     // HORIZONTAL SPACER
@@ -132,8 +135,10 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     andrewField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     andrewField.floatingLabelTextColor = floatingLabelColor;
     andrewField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    andrewField.autocorrectionType = UITextAutocorrectionTypeNo;
     andrewField.clearButtonMode = UITextFieldViewModeWhileEditing;
     andrewField.delegate = self;
+    andrewField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:andrewField];
     
     // HORIZONTAL SPACER
@@ -165,13 +170,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     heightField.floatingLabelTextColor = floatingLabelColor;
     heightField.keyboardType = UIKeyboardTypeNumberPad;
     heightField.delegate = self;
+    heightField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:heightField];
     
     
     // VERTICAL SPACER
     UIView *div5 = [UIView new];
     div5.frame = CGRectMake(kJVFieldHMargin + heightField.frame.size.width,
-                            145.0f,
+                            115 + topOffset,
                             1.0f, kJVFieldHeight + 3.0f);
     div5.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
     [self.view addSubview:div5];
@@ -188,6 +194,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     hairField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     hairField.floatingLabelTextColor = floatingLabelColor;
     hairField.delegate = self;
+    hairField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:hairField];
     
     UIView *div4 = [UIView new];
@@ -239,6 +246,18 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
         if (range.length == 0 &&
             (range.location == 3)) {
             textField.text = [NSString stringWithFormat:@"%@%@\"", textField.text, string];
+            // move the cursor to the 'hair color' text field
+            UITextField *hairColor;
+            for (int i = 0; i < self.view.subviews.count; i++){
+                UIView *subview = self.view.subviews[i];
+                if([subview isKindOfClass:[UITextField class]]) {
+                    if (subview.tag == 4){
+                        NSLog(@"found hair color");
+                        hairColor = (UITextField *)subview;
+                    }
+                }
+            }
+            [hairColor becomeFirstResponder];
             return NO;
         }
         

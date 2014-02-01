@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     FBLoginView *loginView = [[FBLoginView alloc] init];
     loginView.readPermissions = @[@"basic_info", @"email", @"user_likes"];
     loginView.delegate = self;
