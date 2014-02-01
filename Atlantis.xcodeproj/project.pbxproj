@@ -27,7 +27,6 @@
 		0A9BA5A2189C26F300E6CD1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A9BA5A0189C26F300E6CD1B /* InfoPlist.strings */; };
 		0A9BA5A4189C26F300E6CD1B /* AtlantisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BA5A3189C26F300E6CD1B /* AtlantisTests.m */; };
 		0A9BA5AE189C27FF00E6CD1B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */; };
-		0A9BA5B0189C280400E6CD1B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA5AF189C280400E6CD1B /* CoreLocation.framework */; };
 		A0C35BFA189CA5470073466C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C35BF9189CA5470073466C /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +71,7 @@
 		0A9BA5A1189C26F300E6CD1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A9BA5A3189C26F300E6CD1B /* AtlantisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtlantisTests.m; sourceTree = "<group>"; };
 		0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		0A9BA5AF189C280400E6CD1B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A0A6DE55189CD14100913D6B /* TransferService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferService.h; sourceTree = "<group>"; };
 		A0C35BF9189CA5470073466C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,7 +80,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A9BA5B0189C280400E6CD1B /* CoreLocation.framework in Frameworks */,
 				0A9BA5AE189C27FF00E6CD1B /* CoreBluetooth.framework in Frameworks */,
 				0A9BA57B189C26F300E6CD1B /* CoreGraphics.framework in Frameworks */,
 				0A9BA57D189C26F300E6CD1B /* UIKit.framework in Frameworks */,
@@ -137,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				A0C35BF9189CA5470073466C /* FacebookSDK.framework */,
-				0A9BA5AF189C280400E6CD1B /* CoreLocation.framework */,
 				0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */,
 				0A9BA578189C26F300E6CD1B /* Foundation.framework */,
 				0A9BA57A189C26F300E6CD1B /* CoreGraphics.framework */,
@@ -160,6 +157,7 @@
 				0A9BA58A189C26F300E6CD1B /* Main.storyboard */,
 				0A9BA58D189C26F300E6CD1B /* ViewController.h */,
 				0A9BA58E189C26F300E6CD1B /* ViewController.m */,
+				A0A6DE55189CD14100913D6B /* TransferService.h */,
 				0A9BA590189C26F300E6CD1B /* Images.xcassets */,
 				0A9BA57F189C26F300E6CD1B /* Supporting Files */,
 				0A99EA7A189CAC6100F36530 /* ServerComm.h */,
