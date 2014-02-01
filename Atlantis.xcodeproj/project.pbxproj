@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A99EA75189C7C6C00F36530 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A99EA74189C7C6C00F36530 /* FacebookSDK.framework */; };
 		0A99EA79189C82F000F36530 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A99EA78189C82F000F36530 /* LoginViewController.m */; };
 		0A9BA579189C26F300E6CD1B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA578189C26F300E6CD1B /* Foundation.framework */; };
 		0A9BA57B189C26F300E6CD1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA57A189C26F300E6CD1B /* CoreGraphics.framework */; };
@@ -25,6 +24,7 @@
 		0A9BA5A4189C26F300E6CD1B /* AtlantisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BA5A3189C26F300E6CD1B /* AtlantisTests.m */; };
 		0A9BA5AE189C27FF00E6CD1B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */; };
 		0A9BA5B0189C280400E6CD1B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9BA5AF189C280400E6CD1B /* CoreLocation.framework */; };
+		A0C35BFA189CA5470073466C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C35BF9189CA5470073466C /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A99EA74189C7C6C00F36530 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		0A99EA77189C82F000F36530 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0A99EA78189C82F000F36530 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		0A9BA575189C26F300E6CD1B /* Atlantis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlantis.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +61,7 @@
 		0A9BA5A3189C26F300E6CD1B /* AtlantisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtlantisTests.m; sourceTree = "<group>"; };
 		0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		0A9BA5AF189C280400E6CD1B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A0C35BF9189CA5470073466C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 				0A9BA57B189C26F300E6CD1B /* CoreGraphics.framework in Frameworks */,
 				0A9BA57D189C26F300E6CD1B /* UIKit.framework in Frameworks */,
 				0A9BA579189C26F300E6CD1B /* Foundation.framework in Frameworks */,
-				0A99EA75189C7C6C00F36530 /* FacebookSDK.framework in Frameworks */,
+				A0C35BFA189CA5470073466C /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +113,7 @@
 		0A9BA577189C26F300E6CD1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0A99EA74189C7C6C00F36530 /* FacebookSDK.framework */,
+				A0C35BF9189CA5470073466C /* FacebookSDK.framework */,
 				0A9BA5AF189C280400E6CD1B /* CoreLocation.framework */,
 				0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */,
 				0A9BA578189C26F300E6CD1B /* Foundation.framework */,
@@ -399,6 +399,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Kevin/Documents/FacebookSDK,
+					/Users/shanesmith/Documents/TartanHacks2014/Atlantis,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Atlantis/Atlantis-Prefix.pch";
@@ -416,6 +417,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Kevin/Documents/FacebookSDK,
+					/Users/shanesmith/Documents/TartanHacks2014/Atlantis,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Atlantis/Atlantis-Prefix.pch";
