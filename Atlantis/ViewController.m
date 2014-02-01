@@ -20,7 +20,6 @@
     @property (nonatomic, readwrite) NSInteger              sendDataIndex;
 @end
 
-#define NOTIFY_MTU      20
 
 @implementation ViewController
 
@@ -38,22 +37,6 @@
     // Start up the CBPeripheralManager
     _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
     
-    
-    // Initialize location manager and set ourselves as the delegate
-    //self.locationManager = [[CLLocationManager alloc] init];
-    //self.locationManager.delegate = self;
-    
-    // Create a NSUUID object
-    //NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"1F2ACF29-6ACB-4BA5-B08B-0D2DCFA201C1"];
-    //CBUUID *atlantisUUID = [CBUUID UUIDWithString:@"33FC3416-524D-49E5-8C70-201F88628232"];
-   // myCharacteristic = [[CBMutableCharacteristic alloc] initWithType:myCharacteristicUUID
-    //                                   properties:CBCharacteristicPropertyRead
-    //                                        value:myValue permissions:CBAttributePermissionsReadable];
-    // Initialize the Beacon Region
-    //self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid major:1 minor:1 identifier:@"com.Tartanhacks2014.testregion"];
-    
-    // Tell location manager to start monitoring for the beacon region
-    //[self.locationManager startMonitoringForRegion:self.beaconRegion];
 }
 
 /** centralManagerDidUpdateState is a required protocol method.
@@ -118,14 +101,15 @@
         NSLog(@"Too close");
         return;
     }
+     */
     
     // Reject if the signal strength is too low to be close enough (Close is around -22dB)
-    if (RSSI.integerValue < -40) { // was 35
+    if (RSSI.integerValue < -35) { // was 35
         NSLog(@"Too far");
         return;
-    }*/
+    }
     
-    NSLog(@"Discovered %@ at %@", peripheral.name, RSSI);
+    //NSLog(@"Discovered %@ at %@", peripheral.name, RSSI);
     
     // Ok, it's in range - have we already seen it?
     if (self.discoveredPeripheral != peripheral) {
@@ -153,11 +137,11 @@
  */
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    NSLog(@"Peripheral Connected");
+    //NSLog(@"Peripheral Connected");
     
     // Stop scanning
     [self.centralManager stopScan];
-    NSLog(@"Scanning stopped");
+    //NSLog(@"Scanning stopped");
     
     // Clear the data that we may already have
     [self.data setLength:0];
@@ -245,7 +229,7 @@
     [self.data appendData:characteristic.value];
     
     // Log it
-    NSLog(@"Received: %@", stringFromData);
+    //NSLog(@"Received: %@", stringFromData);
 }
 
 
@@ -280,7 +264,7 @@
  */
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@"Peripheral Disconnected");
+    //NSLog(@"Peripheral Disconnected");
     self.discoveredPeripheral = nil;
     
     // We're disconnected, so start scanning again
@@ -379,7 +363,7 @@
  */
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    NSLog(@"Central subscribed to characteristic");
+    //NSLog(@"Central subscribed to characteristic");
     
     // Get the data
     self.dataToSend = [SECRET_STRING dataUsingEncoding:NSUTF8StringEncoding];
@@ -396,7 +380,7 @@
  */
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
-    NSLog(@"Central unsubscribed from characteristic");
+    //NSLog(@"Central unsubscribed from characteristic");
 }
 
 
@@ -418,7 +402,7 @@
             // It did, so mark it as sent
             sendingEOM = NO;
             
-            NSLog(@"Sent: EOM");
+            //NSLog(@"Sent: EOM");
         }
         
         // It didn't send, so we'll exit and wait for peripheralManagerIsReadyToUpdateSubscribers to call sendData again
@@ -481,7 +465,7 @@
                 // It sent, we're all done
                 sendingEOM = NO;
                 
-                NSLog(@"Sent: EOM");
+                // NSLog(@"Sent: EOM");
             }
             
             return;
@@ -500,49 +484,11 @@
 }
 
 
-
-
-
-- (IBAction)buttonClicked:(id)sender {
-    // Get the beacon data to advertise
-    //self.beaconData = [self.beaconRegion peripheralDataWithMeasuredPower:nil];
-    
-    // Start the peripheral manager
-    //self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
-}
-/*
--(void)peripheralManagerDidUpdateState:(CBPeripheralManager*)peripheral
-{
-    if (peripheral.state == CBPeripheralManagerStatePoweredOn)
-    {
-        // Bluetooth is on
-        
-        // Update our status label
-        self.statusLabel.text = @"Broadcasting...";
-        
-        // Start broadcasting
-        //[self.peripheralManager startAdvertising:self.beaconData];
-    }
-    else if (peripheral.state == CBPeripheralManagerStatePoweredOff)
-    {
-        // Update our status label
-        self.statusLabel.text = @"Stopped";
-        
-        // Bluetooth isn't on. Stop broadcasting
-        //[self.peripheralManager stopAdvertising];
-    }
-    else if (peripheral.state == CBPeripheralManagerStateUnsupported)
-    {
-        self.statusLabel.text = @"Unsupported";
-    }
-}
-*/
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     // Don't keep it going while we're not showing.
     [self.centralManager stopScan];
-    NSLog(@"Scanning stopped");
+    NSLog(@"Scanning and Advertising stopped: Disappearing");
     
     // Don't keep it going while we're not showing.
     [self.peripheralManager stopAdvertising];

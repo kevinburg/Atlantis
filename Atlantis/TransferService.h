@@ -14,4 +14,7 @@
 
 #define SECRET_STRING                   @"WAT"
 
+// max bytes to send in a packet
+#define NOTIFY_MTU      20
+
 #endif
