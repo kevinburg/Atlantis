@@ -33,6 +33,7 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     NSData *response1 = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     
     NSError *error = nil;
+    int x = 2+2;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response1 options:kNilOptions error:&error];
     
     if (error != nil) {
