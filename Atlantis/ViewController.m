@@ -381,7 +381,7 @@
     NSLog(@"Central subscribed to characteristic");
     
     // Get the data
-    self.dataToSend = [self.foundLabel.text dataUsingEncoding:NSUTF8StringEncoding];
+    self.dataToSend = [SECRET_STRING dataUsingEncoding:NSUTF8StringEncoding];
     
     // Reset the index
     self.sendDataIndex = 0;
