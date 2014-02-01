@@ -267,23 +267,23 @@
         
             if (![self.connections containsObject:id]) {
         
-            // We have, so show the data,
-            //self.foundLabel.text = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-            //[self.textview setText:[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
+                // We have, so show the data,
+                //self.foundLabel.text = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+                //[self.textview setText:[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
         
-            // Cancel our subscription to the characteristic
-            [peripheral setNotifyValue:NO forCharacteristic:characteristic];
+                // Cancel our subscription to the characteristic
+                [peripheral setNotifyValue:NO forCharacteristic:characteristic];
         
-            // and disconnect from the peripehral
-            [self.centralManager cancelPeripheralConnection:peripheral];
+                // and disconnect from the peripehral
+                [self.centralManager cancelPeripheralConnection:peripheral];
         
         
-            /*[[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
-                                                            object:self];*/
-            [self.connections addObject:id];
-            NSLog(@"Time to reload");
-            [self.table reloadData];
-        }
+                /*[[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
+                                                                object:self];*/
+                [self.connections addObject:id];
+                NSLog(@"Time to reload");
+                [self.table reloadData];
+            }
     }
     
     // Otherwise, just add the data on to what we already have
