@@ -113,7 +113,8 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     // Reject any where the value is above reasonable range
-    if (RSSI.integerValue > -15) {
+    
+    /*if (RSSI.integerValue > -15) {
         NSLog(@"Too close");
         return;
     }
@@ -122,7 +123,7 @@
     if (RSSI.integerValue < -40) { // was 35
         NSLog(@"Too far");
         return;
-    }
+    }*/
     
     NSLog(@"Discovered %@ at %@", peripheral.name, RSSI);
     
