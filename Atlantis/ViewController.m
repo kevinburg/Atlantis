@@ -33,8 +33,10 @@
     @property (strong, nonatomic) UIRefreshControl *refreshControl;
     @property (strong, nonatomic) IBOutlet UITableView *table;
 
+
 @end
 
+static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 
 @implementation ViewController
 
@@ -250,7 +252,26 @@
                                                                 forIndexPath:indexPath];
     NSString *conn = self.connections[[indexPath row]];
 
-    [cell.cellLabel setText:[NSString stringWithFormat:@"Continue with %@", conn]];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/getinfo/%@", SERVER_URL, conn]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    
+    [request setHTTPMethod: @"GET"];
+    
+    NSError *requestError;
+    NSURLResponse *urlResponse = nil;
+    
+    
+    NSData *response1 = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    
+    NSError *error = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response1 options:kNilOptions error:&error];
+    
+    NSString *name = jsonArray[0][@"fname"];
+
+    [cell.cellLabel setText:name];
     
     cell.cellImage.image = nil; // or cell.poster.image = [UIImage imageNamed:@"placeholder.png"];
     
