@@ -29,6 +29,7 @@
 #import "JVFloatLabeledTextField.h"
 #import "JVFloatLabeledTextView.h"
 #import "ServerComm.h"
+#import "ViewController.h"
 
 const static CGFloat kJVFieldHeight = 55.0f; //44
 const static CGFloat kJVFieldHMargin = 10.0f; //10
@@ -60,7 +61,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(doneRegister:)
+                                             selector:@selector(doneRegister)
                                                  name:@"DoneRegister"
                                                object:nil];
 
@@ -342,18 +343,16 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     NSLog([lastName text]);
     
     // TODO: VALIDATE FORM IS FILLED OUT CORRECTLY
-    //ServerComm *serverComm = [[ServerComm alloc] init];
-    //[serverComm registerUser:[firstName text]:[lastName text]];
+    ServerComm *serverComm = [[ServerComm alloc] init];
+    serverComm.id = self.id;
+    [serverComm registerUser:[firstName text]:[lastName text]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DoneRegister"
                                                         object:self];
         
 }
 
-- (void)doneRegister:(NSNotification *)anote
+- (void)doneRegister
 {
-    self.id = [anote userInfo];
-    NSLog(@"REG_VIEW_CON_VIEW");
-    NSLog(self.id);
     [self performSegueWithIdentifier:@"DoneRegisterSegue" sender:self];
 }
 
@@ -361,7 +360,10 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"DoneRegisterSegue"]) {
-        
+        ViewController * con = [segue destinationViewController];
+        con.id = self.id;
+        NSLog(@"REG_VIEW_CON_VIEW");
+        NSLog(self.id);
     } else {
             NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
     }

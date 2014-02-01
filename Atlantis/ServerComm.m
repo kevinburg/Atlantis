@@ -18,7 +18,8 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 - (int)loginUser:(NSDictionary *)userData
 {
   
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/", SERVER_URL]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/logincheck/%@", SERVER_URL,
+                                       userData[@"id"]]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                     cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                         timeoutInterval:10];
@@ -38,13 +39,11 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
         NSLog(@"Error parsing JSON.");
     }
     else {
-        NSLog(@"register result: %@", jsonArray[0][@"id"]);
+        NSLog(@"register result: %@", jsonArray[0][@"result"]);
     }
     
-    self.fbUser = userData;
-    
     //check jsonArray
-    if (true) {
+    if ([jsonArray[0][@"result"] intValue] == 0) {
         return 1;
     } else {
         return 0;
@@ -52,9 +51,10 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 }
 
 -(void)registerUser:(NSString *)firstName :(NSString *)lastName {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/adduser", SERVER_URL]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/adduser/%@", SERVER_URL,
+                                       self.id]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    NSString *userString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&id=%@", firstName, lastName, self.fbUser[@"id"]];
+    NSString *userString = [NSString stringWithFormat:@"fname=%@&lname=%@&id=%@&info=%@&andrew=%@", firstName, lastName, self.id, @"hello", @"kburg"];
     NSData *jsonData = [userString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:jsonData];
