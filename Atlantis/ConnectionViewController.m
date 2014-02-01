@@ -87,6 +87,13 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 }
 
 
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    self.profilePicture.image = [UIImage imageWithData:data];
+    self.profilePicture.layer.masksToBounds = YES;
+    self.profilePicture.layer.cornerRadius = 10.0;
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSLog(@"%@,%@",self.table.delegate, self.table.dataSource);
@@ -104,7 +111,7 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     AtlantisTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AtlantisTableCell"
                                             forIndexPath:indexPath];
     
-    NSString *name = self.likes[[indexPath row]][@"names"];
+    NSString *name = self.likes[[indexPath row]][@"name"];
     
     [cell.cellLabel setText:name];
     
