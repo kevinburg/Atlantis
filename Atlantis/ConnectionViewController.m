@@ -8,9 +8,13 @@
 
 #import "ViewController.h"
 #import "ConnectionViewController.h"
+#import "AtlantisTableCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface ConnectionViewController ()
+
+@property (strong, nonatomic) IBOutlet UITableView *table;
+@property (strong, nonatomic) NSMutableArray *likes;
 
 @end
 
@@ -30,6 +34,8 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setLikes:[[NSMutableArray alloc] init]];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/getinfo/%@", SERVER_URL,
                                        self.id]];
@@ -57,6 +63,8 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     self.hairColor.text = [NSString stringWithFormat:@"%@ hair", jsonArray[0][@"hairColor"]];
     self.majorLabel.text = jsonArray[0][@"dept"];
     
+    self.likes = jsonArray[0][@"likes"];
+    
     //self.connectionLabel.text = self.connectionLabelText;
     
     NSMutableData *imageData;
@@ -74,20 +82,36 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
         NSLog(@"Failed to download picture");
     
 	// Do any additional setup after loading the view.
-}
-
-
-
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    self.profilePicture.image = [UIImage imageWithData:data];
-    self.profilePicture.layer.masksToBounds = YES;
-    self.profilePicture.layer.cornerRadius = 10.0;
     
+    [self.table reloadData];
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSLog(@"%@,%@",self.table.delegate, self.table.dataSource);
+    return 1;
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.likes count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    AtlantisTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AtlantisTableCell"
+                                            forIndexPath:indexPath];
+    
+    NSString *name = self.likes[[indexPath row]][@"names"];
+    
+    [cell.cellLabel setText:name];
+    
+    cell.cellImage.image = nil;
+    return cell;
+}
+
 
 - (IBAction)buttonClicked:(id)sender {
     [self dismissModalViewControllerAnimated:YES];

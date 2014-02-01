@@ -20,4 +20,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *hairColor;
 @property (strong, nonatomic) IBOutlet UILabel *majorLabel;
 
+
 @end
