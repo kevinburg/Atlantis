@@ -13,8 +13,6 @@
 
 @interface ViewController : UIViewController //<CBPeripheralManagerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *table;
-
 @property NSString *id;
 
 @end

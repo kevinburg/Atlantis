@@ -101,40 +101,43 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="142" id="oUZ-Yr-9ty" customClass="AtlantisTableCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AtlantisTableCell" id="dXY-D5-VIP" customClass="AtlantisTableCell">
                                         <rect key="frame" x="0.0" y="22" width="280" height="142"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oUZ-Yr-9ty" id="hgB-hF-gMU">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="141"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dXY-D5-VIP" id="SR7-sY-vNt">
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="141"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gXR-vn-qFT">
-                                                    <rect key="frame" x="106" y="14" width="68" height="66"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tX5-Ub-E9O">
+                                                    <rect key="frame" x="102" y="6" width="76" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3F-2Y-0S7">
-                                                    <rect key="frame" x="28" y="88" width="225" height="44"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bia-PS-HeE">
+                                                    <rect key="frame" x="54" y="100" width="165" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="cellImage" destination="gXR-vn-qFT" id="IlW-R8-amf"/>
-                                            <outlet property="cellLabel" destination="Z3F-2Y-0S7" id="bmZ-bk-gXI"/>
+                                            <outlet property="cell" destination="SR7-sY-vNt" id="nlp-2C-or4"/>
+                                            <outlet property="cellImage" destination="tX5-Ub-E9O" id="xwg-hy-KRV"/>
+                                            <outlet property="cellLabel" destination="Bia-PS-HeE" id="J5e-0D-u7R"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="cEO-3o-P1J"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="muS-Da-l47"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="fxQ-vy-NXu"/>
                     <connections>
-                        <outlet property="cellImage" destination="gXR-vn-qFT" id="f6s-sk-XWT"/>
-                        <outlet property="cellLabel" destination="hgB-hF-gMU" id="h0L-cd-xUJ"/>
-                        <outlet property="table" destination="cya-Ea-j9J" id="QmP-03-rtf"/>
+                        <outlet property="table" destination="cya-Ea-j9J" id="675-e1-2dY"/>
                         <segue destination="78o-86-nuY" kind="modal" identifier="ConnectSegue" id="DyM-eu-cxX"/>
                     </connections>
                 </viewController>

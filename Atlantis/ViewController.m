@@ -27,6 +27,7 @@
     @property (strong, nonatomic) NSMutableArray *connections;
     @property NSString *conn;
     @property (strong, nonatomic) UIRefreshControl *refreshControl;
+    @property (strong, nonatomic) IBOutlet UITableView *table;
 
 @end
 
@@ -39,8 +40,6 @@
     [super viewDidLoad];
     
     [self setConnections:[[NSMutableArray alloc] init]];
-    
-    //[self setTable:[[UITableView alloc] init]];
     
     /*[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(connectionMade)
@@ -56,6 +55,13 @@
     // Start up the CBPeripheralManager
     _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
     
+
+    
+}
+
+- (void)refreshDisplay:(UITableView *)tableView {
+    NSLog(@"reload");
+    [tableView reloadData];
 }
 
 /** centralManagerDidUpdateState is a required protocol method.
@@ -220,6 +226,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"%@,%@",self.table.delegate, self.table.dataSource);
     return 1;
 }
 
@@ -230,7 +237,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AtlantisTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableCell"
+    NSLog(@"cell");
+    AtlantisTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AtlantisTableCell"
                                                                 forIndexPath:indexPath];
     NSString *conn = self.connections[[indexPath row]];
 
@@ -263,10 +271,12 @@
     // Have we got everything we need?
     if ([stringFromData isEqualToString:@"EOM"]) {
         
-            NSString *id = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+        NSString *id = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
         
-            if (![self.connections containsObject:id]) {
+
         
+            if ([self.connections containsObject:id]) {
+            } else {
                 // We have, so show the data,
                 //self.foundLabel.text = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
                 //[self.textview setText:[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
@@ -281,7 +291,8 @@
                 /*[[NSNotificationCenter defaultCenter] postNotificationName:@"ConnectionNotification"
                                                                 object:self];*/
                 [self.connections addObject:id];
-                NSLog(@"Time to reload");
+                NSLog(@"Reload");
+                //[self performSelector:(@selector(refreshDisplay:)) withObject:(self.table) afterDelay:0.5];
                 [self.table reloadData];
             }
     }

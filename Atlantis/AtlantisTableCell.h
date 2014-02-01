@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AtlantisTableCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *cellLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *cellImage;
+@property (weak, nonatomic) IBOutlet UILabel *cellLabel;
+@property (strong, nonatomic) IBOutlet UIView *cell;
 
 @end
