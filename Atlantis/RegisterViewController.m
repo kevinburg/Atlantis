@@ -28,6 +28,7 @@
 #import "RegisterViewController.h"
 #import "JVFloatLabeledTextField.h"
 #import "JVFloatLabeledTextView.h"
+#import "ServerComm.h"
 
 const static CGFloat kJVFieldHeight = 55.0f; //44
 const static CGFloat kJVFieldHMargin = 22.0f; //10
@@ -55,6 +56,13 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(doneRegister)
+                                                 name:@"DoneRegister"
+                                               object:nil];
+
 
     [self.view setTintColor:[UIColor blueColor]];
     
@@ -201,7 +209,29 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     }
     NSLog([firstName text]);
     NSLog([lastName text]);
+    
+    //ServerComm *serverComm = [[ServerComm alloc] init];
+    //[serverComm registerUser:[firstName text]:[lastName text]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DoneRegister"
+                                                        object:self];
+        
 }
+
+- (void)doneRegister
+{
+    [self performSegueWithIdentifier:@"DoneRegisterSegue" sender:self];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"DoneRegisterSegue"]) {
+        
+    } else {
+            NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {

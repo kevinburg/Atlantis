@@ -17,6 +17,7 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 //Otherwise, return 1 and user will be directed to registration.
 - (int)loginUser:(NSDictionary *)userData
 {
+  
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/", SERVER_URL]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                     cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -37,10 +38,32 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
         NSLog(@"Error parsing JSON.");
     }
     else {
-        NSLog(@"Array: %@", jsonArray);
+        NSLog(@"register result: %@", jsonArray[0][@"id"]);
     }
     
-    return 1;
+    self.fbUser = userData;
+    
+    //check jsonArray
+    if (true) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+-(void)registerUser:(NSString *)firstName :(NSString *)lastName {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/adduser", SERVER_URL]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSString *userString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&id=%@", firstName, lastName, self.fbUser[@"id"]];
+    NSData *jsonData = [userString dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:jsonData];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%ld", [jsonData length]] forHTTPHeaderField:@"Content-Length"];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:nil];
+    return;
 }
 
 @end

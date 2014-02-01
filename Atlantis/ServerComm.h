@@ -12,6 +12,10 @@ typedef void (^DataCompletionBlock) (NSData *);
 
 @interface ServerComm : NSObject
 
+@property (strong, nonatomic) NSDictionary *fbUser;
+
 - (int)loginUser:(NSDictionary *)userData;
+
+-(void)registerUser:(NSString *)firstName :(NSString *)lastName;
 
 @end
