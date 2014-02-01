@@ -10,8 +10,14 @@
 
 @interface ConnectionViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *connectionLabel;
 @property NSString *connectionLabelText;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
+
+@property NSString *id;
+
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *heightLabel;
+@property (strong, nonatomic) IBOutlet UILabel *hairColor;
+@property (strong, nonatomic) IBOutlet UILabel *majorLabel;
 
 @end

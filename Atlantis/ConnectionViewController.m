@@ -16,6 +16,7 @@
 
 @implementation ConnectionViewController
 
+static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,7 +30,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.connectionLabel.text = self.connectionLabelText;
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/logincheck/%@", SERVER_URL,
+                                       self.id]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    
+    [request setHTTPMethod: @"GET"];
+    
+    NSError *requestError;
+    NSURLResponse *urlResponse = nil;
+    
+    
+    NSData *response1 = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    
+    NSError *error = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:response1 options:kNilOptions error:&error];
+    
+    NSString *front = jsonArray[0][@"fname"];
+    NSString *back = jsonArray[0][@"lname"];
+    
+    self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", front, back];
+    
+    self.heightLabel.text = jsonArray[0][@"height"];
+    self.hairColor.text = jsonArray[0][@"hairColor"];
+    self.majorLabel.text = jsonArray[0][@"dept"];
+    
+    //self.connectionLabel.text = self.connectionLabelText;
     
     NSMutableData *imageData;
     imageData = [[NSMutableData alloc] init]; // the image will be loaded in here

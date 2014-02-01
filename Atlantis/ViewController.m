@@ -362,8 +362,7 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 {
     if ([segue.identifier isEqualToString:@"ConnectSegue"]) {
         ConnectionViewController * homeController =[segue destinationViewController];
-        homeController.connectionLabelText = self.conn;
-        
+        homeController.id = self.conn;        
     } else {
         NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
    
