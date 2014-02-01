@@ -50,11 +50,11 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
     }
 }
 
--(void)registerUser:(NSString *)firstName :(NSString *)lastName {
+-(void)registerUser:(NSString *)firstName :(NSString *)lastName :(NSString *)andrewID :(NSString *)height :(NSString *)hairColor {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/adduser/%@", SERVER_URL,
-                                       self.id]];
+                                       self.userInfo[@"id"]]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    NSString *userString = [NSString stringWithFormat:@"fname=%@&lname=%@&id=%@&info=%@&andrew=%@", firstName, lastName, self.id, @"hello", @"kburg"];
+    NSString *userString = [NSString stringWithFormat:@"fname=%@&lname=%@&id=%@&andrew=%@&height=%@&hairColor=%@", firstName, lastName, self.userInfo[@"id"], andrewID, height, hairColor];
     NSData *jsonData = [userString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:jsonData];

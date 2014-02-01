@@ -12,10 +12,10 @@ typedef void (^DataCompletionBlock) (NSData *);
 
 @interface ServerComm : NSObject
 
-@property NSString *id;
+@property NSDictionary *userInfo;
 
 - (int)loginUser:(NSDictionary *)userData;
 
--(void)registerUser:(NSString *)firstName :(NSString *)lastName;
+-(void)registerUser:(NSString *)firstName :(NSString *)lastName :(NSString *)andrewID :(NSString *)height :(NSString *)hairColor;
 
 @end

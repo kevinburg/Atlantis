@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RegisterViewController : UIViewController
-@property NSString *id;
+@property NSDictionary *userInfo;
 
 @end

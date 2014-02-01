@@ -54,14 +54,14 @@
 - (void)loggedInToAtlantis:(NSNotification *)anote
 {
     // This function is called once the user logs into Atlantis
-    self.id = [anote userInfo];
+    self.userInfo = [anote userInfo];
     [self performSegueWithIdentifier:@"FromLoginSegue" sender:self];
     
 }
 
 - (void)registerForAtlantis:(NSNotification *)anote
 {
-    self.id = [anote userInfo];
+    self.userInfo = [anote userInfo];
     [self performSegueWithIdentifier:@"RegisterSegue" sender:self];
     
 }
@@ -73,7 +73,7 @@
             [FBSession.activeSession closeAndClearTokenInformation];
         } else {
             NSLog(@"OPEN!");
-            [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
+            [FBSession openActiveSessionWithReadPermissions:@[@"basic_info", @"user_likes"]
                                                allowLoginUI:YES
                                           completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                               AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
@@ -89,15 +89,15 @@
 {
     if ([segue.identifier isEqualToString:@"FromLoginSegue"]) {
         ViewController * con = [segue destinationViewController];
-        con.id = self.id;
+        con.id = self.userInfo[@"id"];
         NSLog(@"REG_VIEW_CON_VIEW");
-        NSLog(self.id);
+        NSLog(self.userInfo[@"id"]);
     } else {
         if ([segue.identifier isEqualToString:@"RegisterSegue"]) {
             RegisterViewController * con = [segue destinationViewController];
-            con.id = self.id;
+            con.userInfo = self.userInfo;
             NSLog(@"LOGIN_VIEW_CON_REG");
-            NSLog(self.id);
+            NSLog(self.userInfo[@"id"]);
         } else {
             NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
         }

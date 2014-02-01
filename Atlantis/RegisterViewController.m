@@ -315,8 +315,9 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     }
     if(theTextField==hairColor){
         // TODO: VALIDATE FORM IS FILLED OUT CORRECTLY
-        //ServerComm *serverComm = [[ServerComm alloc] init];
-        //[serverComm registerUser:[firstName text]:[lastName text]];
+        ServerComm *serverComm = [[ServerComm alloc] init];
+        serverComm.userInfo = self.userInfo;
+        [serverComm registerUser:[firstName text]:[lastName text]:[andrewID text]:[height text]:[hairColor text]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DoneRegister"
                                                             object:self];
     }
@@ -326,26 +327,34 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
 
 
 - (IBAction)buttonClicked:(id)sender {
-    UITextField *firstName, *lastName;
+    UITextField *firstName, *lastName, *andrewID, *height, *hairColor;
     for (int i = 0; i < self.view.subviews.count; i++){
         UIView *subview = self.view.subviews[i];
         if([subview isKindOfClass:[UITextField class]]) {
             if (subview.tag == 0){
                 NSLog(@"found first name");
                 firstName = (UITextField *)subview;
+                
             } else if(subview.tag == 1){
                 NSLog(@"found last name");
                 lastName = (UITextField *)subview;
+            } else if (subview.tag == 2){
+                NSLog(@"andrew");
+                andrewID = (UITextField *)subview;
+            } else if (subview.tag == 3){
+                NSLog(@"height");
+                height = (UITextField *)subview;
+            } else if (subview.tag == 4){
+                NSLog(@"hair color");
+                hairColor = (UITextField *)subview;
             }
         }
     }
-    NSLog([firstName text]);
-    NSLog([lastName text]);
     
     // TODO: VALIDATE FORM IS FILLED OUT CORRECTLY
     ServerComm *serverComm = [[ServerComm alloc] init];
-    serverComm.id = self.id;
-    [serverComm registerUser:[firstName text]:[lastName text]];
+    serverComm.userInfo = self.userInfo;
+    [serverComm registerUser:[firstName text]:[lastName text]:[andrewID text]:[height text]:[hairColor text]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DoneRegister"
                                                         object:self];
         
@@ -361,9 +370,9 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
 {
     if ([segue.identifier isEqualToString:@"DoneRegisterSegue"]) {
         ViewController * con = [segue destinationViewController];
-        con.id = self.id;
+        con.id = self.userInfo[@"id"];
         NSLog(@"REG_VIEW_CON_VIEW");
-        NSLog(self.id);
+        NSLog(con.id);
     } else {
             NSLog(@"Invalid segue attempted from JettaLoginViewController. ");
     }

@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *connectionLabel;
 @property NSString *connectionLabelText;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 
 @end
