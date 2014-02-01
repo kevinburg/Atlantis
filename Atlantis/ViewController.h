@@ -9,16 +9,15 @@
 #import <UIKit/UIKit.h>
 
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "TransferService.h"
 
-@interface ViewController : UIViewController <CBPeripheralManagerDelegate>
+@interface ViewController : UIViewController //<CBPeripheralManagerDelegate>
 
-
-
-//@property (strong, nonatomic) CBPeripheralManager *peripheralManager;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *foundLabel;
+
 
 
 @end

@@ -59,6 +59,7 @@
 		0A9BA5A1189C26F300E6CD1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A9BA5A3189C26F300E6CD1B /* AtlantisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtlantisTests.m; sourceTree = "<group>"; };
 		0A9BA5AD189C27FF00E6CD1B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		A0A6DE55189CD14100913D6B /* TransferService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferService.h; sourceTree = "<group>"; };
 		A0C35BF9189CA5470073466C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +131,7 @@
 				0A9BA58A189C26F300E6CD1B /* Main.storyboard */,
 				0A9BA58D189C26F300E6CD1B /* ViewController.h */,
 				0A9BA58E189C26F300E6CD1B /* ViewController.m */,
+				A0A6DE55189CD14100913D6B /* TransferService.h */,
 				0A9BA590189C26F300E6CD1B /* Images.xcassets */,
 				0A9BA57F189C26F300E6CD1B /* Supporting Files */,
 			);
