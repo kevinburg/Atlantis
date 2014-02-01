@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ServerComm.h"
 
 @implementation AppDelegate
 
@@ -103,15 +104,24 @@
 - (void)finishLoggingIn
 {
     
+    
     [self setLoggedIn:YES];
     
     self.name = [[NSString alloc] init];
     self.name = self.me[@"name"];
     NSLog(self.name);
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoggedInNotification"
+    ServerComm *serverComm = [[ServerComm alloc] init];
+    
+    if ([serverComm loginUser:self.me] == 0) {
+    
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoggedInNotification"
                                                         object:self
                                                       userInfo:self.me];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RegisterNotification"
+                                            object:self userInfo:self.me];
+    }
 
     return;
 }
