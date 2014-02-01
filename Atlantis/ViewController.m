@@ -11,6 +11,8 @@
 #import "ConnectionViewController.h"
 #import "AtlantisTableCell.h"
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
 @interface ViewController () <CBCentralManagerDelegate, CBPeripheralDelegate,
     UITableViewDataSource,
     UITableViewDelegate>
@@ -243,6 +245,22 @@
     NSString *conn = self.connections[[indexPath row]];
 
     [cell.cellLabel setText:[NSString stringWithFormat:@"Continue with %@", conn]];
+    
+    cell.cellImage.image = nil; // or cell.poster.image = [UIImage imageNamed:@"placeholder.png"];
+    
+    dispatch_async(kBgQueue, ^{
+        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", conn]]];
+        if (imgData) {
+            UIImage *image = [UIImage imageWithData:imgData];
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    AtlantisTableCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+                    if (updateCell)
+                        updateCell.cellImage.image = image;
+                });
+            }
+        }
+    });
     
     return cell;
 }
