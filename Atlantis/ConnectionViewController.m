@@ -30,7 +30,29 @@
     [super viewDidLoad];
     self.connectionLabel.text = self.connectionLabelText;
     
+    NSMutableData *imageData;
+    imageData = [[NSMutableData alloc] init]; // the image will be loaded in here
+    NSString *urlString = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", self.connectionLabelText];
+    NSMutableURLRequest *urlRequest =
+    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                            cachePolicy:NSURLRequestUseProtocolCachePolicy
+                        timeoutInterval:2];
+    
+    // Run request asynchronously
+    NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest
+                                                                     delegate:self];
+    if (!urlConnection)
+        NSLog(@"Failed to download picture");
+    
 	// Do any additional setup after loading the view.
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    self.profilePicture.image = [UIImage imageWithData:data];
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    
 }
 
 - (IBAction)buttonClicked:(id)sender {
