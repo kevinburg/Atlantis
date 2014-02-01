@@ -73,7 +73,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     CGFloat currentTopMargin = topOffset + 10.0f;
     
     JVFloatLabeledTextField *firstNameField = [[JVFloatLabeledTextField alloc] initWithFrame:
-                                           CGRectMake(kJVFieldHMargin, currentTopMargin, self.view.frame.size.width - 2 * kJVFieldHMargin, kJVFieldHeight)];
+                                           CGRectMake(kJVFieldHMargin, currentTopMargin, 140.0f, kJVFieldHeight)];
     firstNameField.tag = 0;
     firstNameField.placeholder = NSLocalizedString(@"First Name", @"");
     firstNameField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
@@ -84,17 +84,27 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     [self.view addSubview:firstNameField];
     
     // HORIZONTAL SPACER
-    currentTopMargin += kJVFieldHeight;
+//    currentTopMargin += kJVFieldHeight;
+//    UIView *div1 = [UIView new];
+//    div1.frame = CGRectMake(kJVFieldHMargin, currentTopMargin,
+//                            self.view.frame.size.width - 2 * kJVFieldHMargin, 1.0f);
+//    div1.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
+//    [self.view addSubview:div1];
+    
+    // VERTICAL SPACER
     UIView *div1 = [UIView new];
-    div1.frame = CGRectMake(kJVFieldHMargin, currentTopMargin,
-                            self.view.frame.size.width - 2 * kJVFieldHMargin, 1.0f);
+    div1.frame = CGRectMake(kJVFieldHMargin + firstNameField.frame.size.width,
+                            currentTopMargin,
+                            1.0f, kJVFieldHeight);
     div1.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
     [self.view addSubview:div1];
     
     // LAST NAME FIELD
-    currentTopMargin += 4.0f;
     JVFloatLabeledTextField *lastNameField = [[JVFloatLabeledTextField alloc] initWithFrame:
-                                               CGRectMake(kJVFieldHMargin, currentTopMargin, self.view.frame.size.width - 2 * kJVFieldHMargin, kJVFieldHeight)];
+                                            CGRectMake(kJVFieldHMargin + kJVFieldHMargin + firstNameField.frame.size.width + 1.0f,
+                                                       currentTopMargin,
+                                                       self.view.frame.size.width - 2 * kJVFieldHMargin,
+                                                       kJVFieldHeight)];
     lastNameField.tag = 1;
     lastNameField.placeholder = NSLocalizedString(@"Last Name", @"");
     lastNameField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
@@ -112,7 +122,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     div2.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
     [self.view addSubview:div2];
     
-    // LAST NAME FIELD
+    // ANDREW ID FIELD
     currentTopMargin += 4.0f;
     JVFloatLabeledTextField *andrewField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                               CGRectMake(kJVFieldHMargin, currentTopMargin, self.view.frame.size.width - 2 * kJVFieldHMargin, kJVFieldHeight)];
@@ -153,6 +163,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     heightField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     heightField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     heightField.floatingLabelTextColor = floatingLabelColor;
+    heightField.keyboardType = UIKeyboardTypeNumberPad;
     heightField.delegate = self;
     [self.view addSubview:heightField];
     
@@ -160,12 +171,11 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     // VERTICAL SPACER
     UIView *div5 = [UIView new];
     div5.frame = CGRectMake(kJVFieldHMargin + heightField.frame.size.width,
-                            0.0f,
-                            1.0f, kJVFieldHeight);
+                            145.0f,
+                            1.0f, kJVFieldHeight + 3.0f);
     div5.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
-    [self.view addSubview:div2];
+    [self.view addSubview:div5];
     
-    currentTopMargin;
     
     JVFloatLabeledTextField *hairField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                               CGRectMake(kJVFieldHMargin + kJVFieldHMargin + heightField.frame.size.width + 1.0f,
@@ -200,6 +210,50 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 13.0f; //11
     [firstNameField becomeFirstResponder];
     
     
+}
+
+- (BOOL)textField:(UITextField *)textField
+    shouldChangeCharactersInRange:(NSRange)range
+                replacementString:(NSString *)string {
+    
+    if(textField.tag == 3){
+    
+        // All digits entered
+        if (range.location == 5) {
+            return NO;
+        }
+        
+        // Reject appending non-digit characters
+        if (range.length == 0 &&
+            ![[NSCharacterSet decimalDigitCharacterSet] characterIsMember:[string characterAtIndex:0]]) {
+            return NO;
+        }
+        
+        // Auto-add hyphen before appending 4rd or 7th digit
+        if (range.length == 0 &&
+            (range.location == 0)) {
+            textField.text = [NSString stringWithFormat:@"%@%@'", textField.text, string];
+            return NO;
+        }
+        
+        if (range.length == 0 &&
+            (range.location == 3)) {
+            textField.text = [NSString stringWithFormat:@"%@%@\"", textField.text, string];
+            return NO;
+        }
+        
+        // Delete hyphen when deleting its trailing digit
+        if (range.length == 1 &&
+            (range.location == 1 || range.location == 4))  {
+            range.location--;
+            range.length = 2;
+            textField.text = [textField.text stringByReplacingCharactersInRange:range withString:@""];
+            return NO;
+        }
+        
+        return YES;
+    }
+    return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
