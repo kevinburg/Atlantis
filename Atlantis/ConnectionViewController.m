@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ConnectionViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ConnectionViewController ()
 
@@ -47,8 +48,13 @@
 	// Do any additional setup after loading the view.
 }
 
+
+
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     self.profilePicture.image = [UIImage imageWithData:data];
+    self.profilePicture.layer.masksToBounds = YES;
+    self.profilePicture.layer.cornerRadius = 10.0;
+    
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
