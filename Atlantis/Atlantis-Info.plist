@@ -32,6 +32,11 @@
 	</array>
 	<key>FacebookAppID</key>
 	<string>489745407802852</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+	</array>
 	<key>FacebookDisplayName</key>
 	<string>Atlantis</string>
 	<key>CFBundleURLTypes</key>
