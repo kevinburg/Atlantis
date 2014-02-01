@@ -62,8 +62,8 @@
 }
 
 - (IBAction)buttonClicked:(id)sender {
-    
-    [self performSegueWithIdentifier:@"DisconnectSegue" sender:self];
+    [self dismissModalViewControllerAnimated:YES];
+//    [self performSegueWithIdentifier:@"DisconnectSegue" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

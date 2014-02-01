@@ -10,6 +10,8 @@
 #import "ViewController.h"
 #import "ConnectionViewController.h"
 #import "AtlantisTableCell.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
@@ -41,7 +43,11 @@
 
     [super viewDidLoad];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
     [self setConnections:[[NSMutableArray alloc] init]];
+    
+    [_table setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     /*[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(connectionMade)
@@ -257,6 +263,8 @@
                     AtlantisTableCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
                     if (updateCell)
                         updateCell.cellImage.image = image;
+                    updateCell.cellImage.clipsToBounds = YES;
+                    updateCell.cellImage.layer.cornerRadius = 10.0;
                 });
             }
         }

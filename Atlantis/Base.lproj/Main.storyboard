@@ -93,27 +93,27 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nearby" translatesAutoresizingMaskIntoConstraints="NO" id="Iuj-k2-fIC">
-                                <rect key="frame" x="45" y="20" width="228" height="52"/>
+                                <rect key="frame" x="46" y="33" width="228" height="52"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cya-Ea-j9J">
-                                <rect key="frame" x="20" y="105" width="280" height="426"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="187" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cya-Ea-j9J">
+                                <rect key="frame" x="0.0" y="117" width="320" height="451"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AtlantisTableCell" id="dXY-D5-VIP" customClass="AtlantisTableCell">
-                                        <rect key="frame" x="0.0" y="22" width="280" height="142"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AtlantisTableCell" id="dXY-D5-VIP" customClass="AtlantisTableCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="187"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dXY-D5-VIP" id="SR7-sY-vNt">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="141"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="186"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tX5-Ub-E9O">
-                                                    <rect key="frame" x="86" y="7" width="108" height="92"/>
+                                                    <rect key="frame" x="90" y="8" width="140" height="140"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bia-PS-HeE">
-                                                    <rect key="frame" x="47" y="100" width="186" height="37"/>
+                                                    <rect key="frame" x="20" y="149" width="280" height="37"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                     <nil key="highlightedColor"/>
@@ -138,7 +138,7 @@
                     <navigationItem key="navigationItem" id="fxQ-vy-NXu"/>
                     <connections>
                         <outlet property="table" destination="cya-Ea-j9J" id="675-e1-2dY"/>
-                        <segue destination="78o-86-nuY" kind="push" identifier="ConnectSegue" id="DyM-eu-cxX"/>
+                        <segue destination="78o-86-nuY" kind="modal" identifier="ConnectSegue" id="DyM-eu-cxX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -165,9 +165,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKn-52-l71">
-                                <rect key="frame" x="14" y="30" width="38" height="20"/>
+                                <rect key="frame" x="14" y="20" width="40" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back">
+                                <state key="normal" title="Close">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -184,7 +184,6 @@
                     <connections>
                         <outlet property="connectionLabel" destination="Bfg-1T-Zfh" id="kcK-da-mfQ"/>
                         <outlet property="profilePicture" destination="XqC-yu-GHt" id="nRi-F9-eDp"/>
-                        <segue destination="vXZ-lx-hvc" kind="push" identifier="DisconnectSegue" id="bEC-Ni-4Jq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEy-Yp-eqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -205,6 +204,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="bEC-Ni-4Jq"/>
+        <segue reference="mza-5R-KjQ"/>
     </inferredMetricsTieBreakers>
 </document>
