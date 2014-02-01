@@ -353,6 +353,9 @@
         
         // And add it to the peripheral manager
         [self.peripheralManager addService:transferService];
+        
+        // All we advertise is our service's UUID
+        [self.peripheralManager startAdvertising:@{ CBAdvertisementDataServiceUUIDsKey : @[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]] }];
     }
     else if (peripheral.state == CBPeripheralManagerStatePoweredOff)
     {
