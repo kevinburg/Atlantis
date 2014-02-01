@@ -66,6 +66,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     
     JVFloatLabeledTextField *firstNameField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                            CGRectMake(kJVFieldHMargin, currentTopMargin, self.view.frame.size.width - 2 * kJVFieldHMargin, kJVFieldHeight)];
+    firstNameField.tag = 0;
     firstNameField.placeholder = NSLocalizedString(@"First Name", @"");
     firstNameField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     firstNameField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
@@ -85,6 +86,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     currentTopMargin += 4.0f;
     JVFloatLabeledTextField *lastNameField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                                CGRectMake(kJVFieldHMargin, currentTopMargin, self.view.frame.size.width - 2 * kJVFieldHMargin, kJVFieldHeight)];
+    lastNameField.tag = 1;
     lastNameField.placeholder = NSLocalizedString(@"Last Name", @"");
     lastNameField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     lastNameField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
@@ -104,6 +106,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     currentTopMargin += 4.0f;
     JVFloatLabeledTextField *andrewField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                               CGRectMake(kJVFieldHMargin, currentTopMargin, self.view.frame.size.width - 2 * kJVFieldHMargin, kJVFieldHeight)];
+    andrewField.tag = 2;
     andrewField.placeholder = NSLocalizedString(@"Andrew ID", @"");
     andrewField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     andrewField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
@@ -133,6 +136,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     
     JVFloatLabeledTextField *priceField = [[JVFloatLabeledTextField alloc] initWithFrame:
                                            CGRectMake(kJVFieldHMargin, currentTopMargin, 80.0f, kJVFieldHeight)];
+    priceField.tag = 3;
     priceField.placeholder = NSLocalizedString(@"Height", @"");
     priceField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     priceField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
@@ -153,6 +157,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
                                                          currentTopMargin,
                                                          self.view.frame.size.width - 3*kJVFieldHMargin - priceField.frame.size.width - 1.0f,
                                                          kJVFieldHeight)];
+    locationField.tag = 5;
     locationField.placeholder = NSLocalizedString(@"Hair Color", @"");
     locationField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     locationField.floatingLabel.font = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
@@ -178,6 +183,24 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 15.0f; //11
     
     [firstNameField becomeFirstResponder];
     
+}
+
+- (IBAction)buttonClicked:(id)sender {
+    UITextField *firstName, *lastName;
+    for (int i = 0; i < self.view.subviews.count; i++){
+        UIView *subview = self.view.subviews[i];
+        if([subview isKindOfClass:[UITextField class]]) {
+            if (subview.tag == 0){
+                NSLog(@"found first name");
+                firstName = (UITextField *)subview;
+            } else if(subview.tag == 1){
+                NSLog(@"found last name");
+                lastName = (UITextField *)subview;
+            }
+        }
+    }
+    NSLog([firstName text]);
+    NSLog([lastName text]);
 }
 
 - (void)didReceiveMemoryWarning
