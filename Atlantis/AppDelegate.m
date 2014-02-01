@@ -22,7 +22,7 @@
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         
         // If there's one, just open the session silently, without showing the user the login UI
-        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
+        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info", @"user_likes"]
                                            allowLoginUI:NO
                                       completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                           // Handler for session state changes
@@ -96,8 +96,19 @@
         [FBRequestConnection startWithGraphPath:@"me?fields=picture.type(large)"
                               completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                                   [self.me setValue:result[@"picture"][@"data"][@"url"] forKey:@"pictureURL"];
-                                  [self finishLoggingIn];
+                                  //[self finishLoggingIn];
+                                  
+                                  // Now get their likes
+                                  [FBRequestConnection startWithGraphPath:@"me?fields=likes"
+                                                        completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                            //NSArray *myLikes = (NSArray*)[result data];
+                                                            [self.me setValue:result[@"likes"][@"data"] forKey:@"likesArrayOfDicts"];
+                                                            //NSLog(self.me[@"stuff"][0][@"name"]);
+                                                            //[self.me setValue: result forKey: @"likes"];
+                                                            [self finishLoggingIn];
+                                                        }];
                               }];
+        
     }];
     return;
 }
@@ -111,6 +122,23 @@
     self.name = [[NSString alloc] init];
     self.name = self.me[@"name"];
     NSLog(self.name);
+    
+    
+/*
+    // Send json to server
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"http://atlantis-server.hiroku/FakeURL"]];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLResponse *response;
+    NSData *GETReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    NSString *theReply = [[NSString alloc] initWithBytes:[GETReply bytes] length:[GETReply length] encoding: NSASCIIStringEncoding];
+    NSLog(@"Reply: %@", theReply);
+    */
+    
+    
+    
     
     ServerComm *serverComm = [[ServerComm alloc] init];
     

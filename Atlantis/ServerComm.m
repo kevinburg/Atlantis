@@ -51,15 +51,21 @@ static NSString *SERVER_URL = @"http://atlantis-server.herokuapp.com";
 }
 
 -(void)registerUser:(NSString *)firstName :(NSString *)lastName :(NSString *)andrewID :(NSString *)height :(NSString *)hairColor {
+    // make json string
+    NSData *jsonNSData = [NSJSONSerialization dataWithJSONObject:self.userInfo[@"likesArrayOfDicts"]
+                                                       options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonNSData encoding:NSUTF8StringEncoding];
+    
+    // do other stuff
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/adduser/%@", SERVER_URL,
                                        self.userInfo[@"id"]]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    NSString *userString = [NSString stringWithFormat:@"fname=%@&lname=%@&id=%@&andrew=%@&height=%@&hairColor=%@", firstName, lastName, self.userInfo[@"id"], andrewID, height, hairColor];
+    NSString *userString = [NSString stringWithFormat:@"fname=%@&lname=%@&id=%@&andrew=%@&height=%@&hairColor=%@&likes=%@", firstName, lastName, self.userInfo[@"id"], andrewID, height, hairColor, jsonString];
     NSData *jsonData = [userString dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:jsonData];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%ld", [jsonData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:nil];
